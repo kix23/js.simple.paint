@@ -1,0 +1,53 @@
+div { 
+	border:1px solid #888; 
+	color:#FFFFFF;
+	font-family:Arial 
+}
+#farben	{ 
+	cursor: default; 
+	width:100px; 
+	height:200px; 
+	position:absolute; 
+	top:023px; 
+	left:023px; 
+	z-index:0;
+	display: none;
+
+}
+#pinsel	{ 
+	cursor: default; 
+	width:100px; 
+	height:100px; 
+	position:absolute; 
+	top:223px; 
+	left:023px; 
+	z-index:0;
+}
+#funktionen { 
+	cursor: default; 
+	width:100px; 
+	height:050px; 
+	position:absolute; 
+	top:323px; 
+	left:023px; 
+	z-index:0;
+}
+#leinwand { 
+	cursor: none; 
+	width:800px; 
+	height:600px; 
+	position:absolute; 
+	top:023px; 
+	left:123px; 
+	z-index:0;
+}
+#dateifunktionen { 
+	cursor: default; 
+	width:100px; 
+	height:050px; 
+	position:absolute; 
+	top:375px; 
+	left:023px; 
+	z-index:0;
+}
+
