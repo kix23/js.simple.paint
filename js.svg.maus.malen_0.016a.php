@@ -66,7 +66,7 @@ echo "Speichern geladen <hr>";
 			alert("Lade.");
 			lade=new XMLHttpRequest();
 			window.onunload = lade.abort ();
-			lade.open("GET","./" + bildname + ".txt",true); 
+			lade.open("GET","./" + bildname + ".txt",true); //i know this is a big sechole. but for now it runs local. has to add a file/path validation. !!!!
 			lade.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 			lade.send();
 			lade.onreadystatechange=function(){
@@ -79,7 +79,8 @@ echo "Speichern geladen <hr>";
 					LinieNr=(((document.getElementById("svg").childNodes.length)-abzug)/2);
 				}
 			}
-		}
+			document.getElementById("ladebild").value="";	
+		
 	}
 
 	function speichern(){
