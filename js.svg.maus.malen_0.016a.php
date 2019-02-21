@@ -60,22 +60,24 @@ echo "Speichern geladen <hr>";
 		LinieNr=0;
 	}
 
-	function laden(){
-		aufanfang();
-		alert("Lade.");
-		lade=new XMLHttpRequest();
-		window.onunload = lade.abort ();
-		lade.open("GET","./bild.txt",true); 
-		lade.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-		lade.send();
-		lade.onreadystatechange=function(){
-			if (lade.readyState==4 && lade.status==200){
-				var abzug=document.getElementById("svg").childNodes.length; //der zählt ja die aktuellen nodes.. warum nochmal?
-				// alert("Abzug"+abzug);
-				bild=lade.responseText;
-				document.getElementById("svg").innerHTML+=bild;
-				// alert((((document.getElementById("svg").childNodes.length)-abzug)/2)); //hier stimmt was nicht
-				LinieNr=(((document.getElementById("svg").childNodes.length)-abzug)/2);
+	function laden(bildname){
+		if (bildname!=""){
+			aufanfang();
+			alert("Lade.");
+			lade=new XMLHttpRequest();
+			window.onunload = lade.abort ();
+			lade.open("GET","./" + bildname + ".txt",true); 
+			lade.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+			lade.send();
+			lade.onreadystatechange=function(){
+				if (lade.readyState==4 && lade.status==200){
+					var abzug=document.getElementById("svg").childNodes.length; //der zählt ja die aktuellen nodes.. warum nochmal?
+					// alert("Abzug"+abzug);
+					bild=lade.responseText;
+					document.getElementById("svg").innerHTML+=bild;
+					// alert((((document.getElementById("svg").childNodes.length)-abzug)/2)); //hier stimmt was nicht
+					LinieNr=(((document.getElementById("svg").childNodes.length)-abzug)/2);
+				}
 			}
 		}
 	}
@@ -186,11 +188,15 @@ echo "Speichern geladen <hr>";
 </div>
 <!-- Laden/Speichern -->
 <div id="dateifunktionen">
+	<select id="ladebild" onchange="laden(this.value)">
+		<option value="" >laden</option>
+		<option value="bild">bild1</option>
+	</select>	
 	<svg id="dateiknoebbe"width=80 height=150>
 		<rect x="00" y="10" rx="10" ry="10" width="60" height="15" style="fill:#ffffff;stroke-width:1;stroke:#000000;opacity:0.5" ></rect> 		
 		<text x="04" y="21" font-family="Arial" font-size="12" fill="#000000" onclick="speichern()">speichern</text>
-		<rect x="00" y="25" rx="10" ry="23" width="60" height="15" style="fill:#ffffff;stroke-width:1;stroke:#000000;opacity:0.5" ></rect> 		
-		<text x="04" y="36" font-family="Arial" font-size="12" fill="#000000" onclick="laden()">laden</text>
+<!--		<rect x="00" y="25" rx="10" ry="23" width="60" height="15" style="fill:#ffffff;stroke-width:1;stroke:#000000;opacity:0.5" ></rect> 		
+		<text x="04" y="36" font-family="Arial" font-size="12" fill="#000000" onclick="laden()">laden</text> -->
 	</svg>
 </div>
 <!-- Zeichenflaeche -->

@@ -82,6 +82,13 @@ div {
 #dateifunktionen:hover{
 	display:block;
 }
+#ladebild {
+	height:10px;
+	font-size: 10px;
+	width:100px;
+	position: relative;
+	top: 5px;
+}
 #leinwand { 
 	cursor: none; 
 	width:100%; 
