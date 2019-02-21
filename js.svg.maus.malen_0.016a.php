@@ -1,13 +1,28 @@
 <?php
+ error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+$verzeichnis="savedpics/";
+$speichername=date('ymdHis');
+$endung=".txt";
+echo $speichername;
 #speichern - datei schreiben 
 if(isset($_POST['aktion']) && $_POST['aktion']=="speichern"){
 echo "Speichern geladen <hr>";
 	$bild		= $_POST['bild'];
-	$datei 		= fopen("bild.txt","w+");
-	#$bild2 	= fgets($datei, 235);
+	$datei 		= fopen($verzeichnis.$speichername.$endung,"w+");
 	rewind($datei);
 	fwrite($datei, $bild);
 	fclose($datei);
+}
+
+#laden
+$bilddateien=scandir($verzeichnis);
+$ladeoption="";
+foreach($bilddateien as &$eintrag){
+	if($eintrag!="." && $eintrag!=".."){
+		$eintrag=basename($eintrag,$endung);
+		$ladeoption.="<option value='".$eintrag."'>".$eintrag."</option>";
+	}
 }
 ?>
 <html>
@@ -63,10 +78,10 @@ echo "Speichern geladen <hr>";
 	function laden(bildname){
 		if (bildname!=""){
 			aufanfang();
-			alert("Lade.");
+			//alert("Lade.");
 			lade=new XMLHttpRequest();
 			window.onunload = lade.abort ();
-			lade.open("GET","./" + bildname + ".txt",true); //i know this is a big sechole. but for now it runs local. has to add a file/path validation. !!!!
+			lade.open("GET","<?php echo $verzeichnis; ?>" + bildname + "<?php echo $endung; ?>",true); //i know this is a big sechole. but for now it runs local. has to add a file/path validation. !!!!
 			lade.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 			lade.send();
 			lade.onreadystatechange=function(){
@@ -80,7 +95,7 @@ echo "Speichern geladen <hr>";
 				}
 			}
 			document.getElementById("ladebild").value="";	
-		
+		}	
 	}
 
 	function speichern(){
@@ -191,7 +206,7 @@ echo "Speichern geladen <hr>";
 <div id="dateifunktionen">
 	<select id="ladebild" onchange="laden(this.value)">
 		<option value="" >laden</option>
-		<option value="bild">bild1</option>
+		<?php echo $ladeoption; ?>
 	</select>	
 	<svg id="dateiknoebbe"width=80 height=150>
 		<rect x="00" y="10" rx="10" ry="10" width="60" height="15" style="fill:#ffffff;stroke-width:1;stroke:#000000;opacity:0.5" ></rect> 		
