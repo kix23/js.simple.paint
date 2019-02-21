@@ -45,6 +45,10 @@ echo "Speichern geladen <hr>";
 		var undo=document.getElementById("linie"+LinieNr);
 		undo.parentNode.removeChild(undo);
 		LinieNr--;
+		//undo 2x wenn undo knopf auf leinwand liegt..
+		var undo=document.getElementById("linie"+LinieNr); 
+		undo.parentNode.removeChild(undo);
+		LinieNr--;
 		}
 		else { alert("Nix da..."); }
 	}
@@ -67,10 +71,10 @@ echo "Speichern geladen <hr>";
 		lade.onreadystatechange=function(){
 			if (lade.readyState==4 && lade.status==200){
 				var abzug=document.getElementById("svg").childNodes.length; //der zählt ja die aktuellen nodes.. warum nochmal?
-				alert("Abzug"+abzug);
+				// alert("Abzug"+abzug);
 				bild=lade.responseText;
 				document.getElementById("svg").innerHTML+=bild;
-				alert((((document.getElementById("svg").childNodes.length)-abzug)/2)); //hier stimmt was nicht
+				// alert((((document.getElementById("svg").childNodes.length)-abzug)/2)); //hier stimmt was nicht
 				LinieNr=(((document.getElementById("svg").childNodes.length)-abzug)/2);
 			}
 		}
@@ -94,8 +98,8 @@ echo "Speichern geladen <hr>";
 	}
 
 	window.addEventListener('mousemove', function(MausStalker){
-		MausPosition.x=MausStalker.clientX-123;
-		MausPosition.y=MausStalker.clientY-23;
+		MausPosition.x=MausStalker.clientX;
+		MausPosition.y=MausStalker.clientY;
 		
 		//Mauszeiger
 		var PinselX = document.getElementById("PinselX");
@@ -139,12 +143,14 @@ echo "Speichern geladen <hr>";
 		Mausklick=false;
 	}, false);
 </script>
-
+<!-- Hoverfläche  -->
+<div id="showpaintoptions">
+</div>
 <!-- FarbpaletteSVG -->
 <div id="farben">
 	<span style="font-size:23px; font-family:Arial; color:#AAAAAA">Farbe:</span>
 	<svg id="farbe" width=80 height=150>
-  		<rect x="00" y="00" width="15" height="15" style="fill:#000000;stroke-width:1;stroke:#000000" onclick="farbwahl('#000000')"></rect>
+  		<rect x="00" y="00" width="15" height="15" style="fill:#000000;stroke-width:1;stroke:#ffffff" onclick="farbwahl('#000000')"></rect>
   		<rect x="15" y="00" width="15" height="15" style="fill:#ff0000;stroke-width:1;stroke:#000000" onclick="farbwahl('#ff0000')"></rect>
   		<rect x="30" y="00" width="15" height="15" style="fill:#00ff00;stroke-width:1;stroke:#000000" onclick="farbwahl('#00ff00')"></rect>
   		<rect x="45" y="00" width="15" height="15" style="fill:#0000ff;stroke-width:1;stroke:#000000" onclick="farbwahl('#0000ff')"></rect>
@@ -189,7 +195,7 @@ echo "Speichern geladen <hr>";
 </div>
 <!-- Zeichenflaeche -->
 <div id="leinwand">
-	<svg id="svg" width="800px" height="600px">
+	<svg id="svg" width="100%" height="100%">
 	  <line id="PinselX" x1="0" y1="0" x2="0" y2="0" style="stroke:rgb(200,200,200);stroke-width:2"></line>
 	  <line id="PinselY" x1="0" y1="0" x2="0" y2="0" style="stroke:rgb(200,200,200);stroke-width:2"></line>
 	</svg>
